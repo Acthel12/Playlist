@@ -8,14 +8,12 @@ package com.mycompany.playlist;
  *
  * @author Usuario
  */
-public class Nodo {
+public class Nodo{
     String cancion;
     Nodo siguiente;
-    Nodo anterior;
     
-    public Nodo (String cancion){
+    public Nodo(String cancion){
         this.cancion = cancion;
         this.siguiente = null;
-        this.anterior = null;
     }
 }
