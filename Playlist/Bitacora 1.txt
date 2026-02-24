@@ -5,3 +5,7 @@ Gabriel Carneiro
 2.Se programaron las estructuras de datos (nodo,java)
 3.Se uso la ia para correguir codigo
 el promt fue el contenido de Lista.java la ia devolvio unos errores de logica relacionados con mostrar la lista lo demas bien
+
+Dia 2 (24/02/2026)
+Gabriel Carneiro 
+1.Se creo la clase de pila
