@@ -26,7 +26,7 @@ public class Pila {
         }
         public Nodo Desapilar(){
             if (this.cabeza == null){
-                System.out.println("Error, El historial esta vacio");
+                System.out.println("Error: el historial esta vacío");
                 return null;
             }
             else {
@@ -49,7 +49,7 @@ public class Pila {
                 }
             }
             else {
-                System.out.println("El historial esta vacio");
+                System.out.println("El historial esta vacío");
             }
         }
 }
