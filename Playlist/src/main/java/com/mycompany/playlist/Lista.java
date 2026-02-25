@@ -28,7 +28,7 @@ public class Lista {
             cancion.siguiente = this.cabeza;
             this.cabeza = cancion;
         }
-        System.out.println("Añadida la Cancion " + cancion.cancion +" al Comienzo de la lista");
+        System.out.println("Añadida la canción " + cancion.cancion +" al comienzo de la lista");
     }
     
     public void AgregarCancionFinal(Nodo cancion){
@@ -42,7 +42,7 @@ public class Lista {
             colaActual.siguiente = cancion;
             this.cola = cancion;
         }
-        System.out.println("Añadida la Cancion " + cancion.cancion +" al Final de la lista");
+        System.out.println("Añadida la canción " + cancion.cancion +" al final de la lista");
     }
     public void ReproducirAContinuacion(Nodo cancion){
         if(this.cabeza == null ){
@@ -57,14 +57,14 @@ public class Lista {
               this.cola = cancion;
           }
         }
-        System.out.println("Añadida la Cancion " + cancion.cancion +" despues de la cancion actual");
+        System.out.println("Añadida la canción " + cancion.cancion +" después de la canción actual");
     }
     public void ReproducirSiguiente(Pila historial){
         if (this.cabeza == null){
-            System.out.println("Error, no hay canciones en la lista de reproduccion");
+            System.out.println("Error, no hay canciones en la lista de reproducción");
         }
         else {
-            System.out.println("Se acabo la canción: " + this.cabeza.cancion);
+            System.out.println("Se acabó la canción: " + this.cabeza.cancion);
             Nodo cancionSiguiente = this.cabeza.siguiente;
             if(cancionSiguiente != null){
                 System.out.println("Reproduciendo la siguiente canción: " + cancionSiguiente.cancion);
@@ -74,7 +74,7 @@ public class Lista {
             
             if (this.cabeza == null){
                 this.cola = null;
-                System.out.println("Se termino la lista de reproduccion actual.");
+                System.out.println("Se terminó la lista de reproducción actual.");
             }
         }
     }
@@ -87,19 +87,19 @@ public class Lista {
     
     public void MostrarCancionActual(){
         if (cabeza == null){
-            System.out.println("Error, la lista de reproduccion esta vacia");
+            System.out.println("Error, la lista de reproducción esta vacia");
         }
         else {
-            System.out.println("La cancion actual es: "+ this.cabeza.cancion);
+            System.out.println("La canción actual es: "+ this.cabeza.cancion);
         }
     }
     public void MostrarListaDeReproduccion(){
         if(this.cabeza == null ){
-            System.out.println("Error, La Lista esta vacia");
+            System.out.println("Error, La lista está vacía");
         }
         else {
             int contador = 0;
-            System.out.println("Lista De Reproduccion");
+            System.out.println("Lista de reproducción");
             Nodo actual = this.cabeza;
             while (actual != null){
                 contador += 1;
@@ -110,11 +110,11 @@ public class Lista {
     }
     public void EliminarCancion(String cancion){
         if (this.cabeza == null){
-            System.out.println("Error la lista de reproduccion esta vacia ");
+            System.out.println("Error: la lista de reproducción esta vacía ");
         }
         else if (this.cabeza.cancion.equals(cancion) ) {
             this.cabeza = this.cabeza.siguiente;
-            System.out.println("Se elimino " + cancion + "al comienzo de la lista de reproducción");
+            System.out.println("Se eliminó " + cancion + "al comienzo de la lista de reproducción");
             if (this.cabeza == null || this.cabeza.siguiente == null ){
                 this.cola = this.cabeza;
             } 
@@ -127,13 +127,13 @@ public class Lista {
             }
             if (actual.siguiente != null){
                 actual.siguiente  = actual.siguiente.siguiente;
-                System.out.println("Se elimino la primera aparicion de " + cancion);
+                System.out.println("Se eliminó la primera aparición de " + cancion);
                 if (actual.siguiente == null){
                     this.cola = actual;
                 }
             }
             else{
-                System.out.println("No se encontro la cancion a eliminar");
+                System.out.println("No se encontró la canción a eliminar");
             }
             
         }
