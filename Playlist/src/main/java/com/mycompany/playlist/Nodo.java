@@ -8,6 +8,8 @@ package com.mycompany.playlist;
  *
  * @author Usuario
  */
+
+//lógica de los nodos según vimos en clase
 public class Nodo{
     String cancion;
     Nodo siguiente;

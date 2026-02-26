@@ -13,9 +13,9 @@ import java.util.Scanner;
 
 public class Playlist {
     
-    public static void limpiarPantalla() {
-        // Imprime 5 líneas vacías para y que "limpiar la terminal" (solo se ve un poquito mejor)
-        //gemini resolvió porq en netbeans no hay manera de limpiar la terminal
+    public static void limpiarPantalla() 
+    {
+        //imprime 5 líneas vacías para y que "limpiar la terminal" (solo se ve un poquito mejor)
         for (int i = 0; i < 5; i++) {
             System.out.println();
         }
@@ -31,7 +31,8 @@ public class Playlist {
         int opcionEscogida;
         
         //ciclo while del menú
-        while (!salir) {
+        while (!salir) 
+        {
             System.out.println("¡Bienvenido al súper reproductor unimarista!");
             System.out.println("Selecciona una de las siguientes opciones:");
             System.out.println("1. Agregar canción al final de la playlist");
@@ -42,16 +43,19 @@ public class Playlist {
             System.out.println("6. Salir");
             System.out.print("Elige una opción: ");
 
-            try {
+            try 
+            {
                 String entrada = escaner.nextLine();
                 opcionEscogida = Integer.parseInt(entrada);
 
-                switch (opcionEscogida) {
+                switch (opcionEscogida) 
+                {
                     case 1:
                         //agregar al final de la playlist
                         System.out.print("Nombre de la canción: ");
                         String nombreFinal = escaner.nextLine();
-                        if (nombreFinal == null || nombreFinal.isBlank()){
+                        if (nombreFinal == null || nombreFinal.isBlank())
+                        {
                             System.out.println("Error por favor introduzca un nombre para la canción");
                             limpiarPantalla();
                             break;
@@ -64,12 +68,13 @@ public class Playlist {
                     //insertar la siguiente canción
                         System.out.print("Nombre de la canción: ");
                         String nombreSiguiente = escaner.nextLine();
-                        if (nombreSiguiente == null || nombreSiguiente.isBlank()){
+                        if (nombreSiguiente == null || nombreSiguiente.isBlank())
+                        {
                             System.out.println("Error por favor introduzca un nombre para la canción");
                             limpiarPantalla();
                             break;
                         }
-                        playlist.ReproducirAContinuacion(new Nodo(nombreSiguiente));
+                        playlist.AgregarCancionSiguiente(new Nodo(nombreSiguiente));
                         limpiarPantalla();
                         break;
 
@@ -86,7 +91,7 @@ public class Playlist {
                                 limpiarPantalla();
                                 System.out.println("++++ REPRODUCTOR UNIMARISTA ++++");
                                 System.out.println("SONANDO AHORA");
-                                //usamos el método que está en la clase lista para mostrar la canción
+                                //usamos el método que está en la clase lista para mostrar la canción actual
                                 playlist.MostrarCancionActual(); 
                                 System.out.println("\n---------------------------");
                                 System.out.println("Controles del reproductor:");
@@ -150,12 +155,13 @@ public class Playlist {
                 
             //por si no es un número válido
             } catch (NumberFormatException e) {
-                System.out.println("Error: Ingresa un número válido.");
-            //por si hay algun otro error
-            } catch (Exception e) {
+                System.out.println("Error: Ingresa un número válido.");}
+            //por si hay algún otro error
+            catch (Exception e) {
                 System.out.println("Error inesperado: " + e.getMessage());
             }
         }
+        //cerrar el escáner
         escaner.close();
     }
 }

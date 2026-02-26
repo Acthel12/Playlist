@@ -15,7 +15,9 @@ public class Pila {
             this.cabeza = null;
         }
         
-        public void Apilar(Nodo cancion){
+        //apilar canción mediante los nodos y copia de seguridad del nodo para que el historial no se rompa
+        public void Apilar(Nodo cancion)
+        {
             //copia de seguridad para que no se rompa el historial
             Nodo nuevoNodoHistorial = new Nodo(cancion.cancion);
             if (this.cabeza == null){
@@ -26,7 +28,10 @@ public class Pila {
                 this.cabeza = nuevoNodoHistorial;
             }
         }
-        public Nodo Desapilar(){
+        
+        //desapilar una canción, esto se usa para recuperar la canción escuchada anteriormente
+        public Nodo Desapilar()
+        {
             if (this.cabeza == null){
                 System.out.println("Error: el historial esta vacío");
                 return null;
@@ -39,7 +44,10 @@ public class Pila {
                 return actual;
             }
         }
-        public void MostrarHistorial(){
+        
+        //mostrar el historial de todas las canciones reproducidas
+        public void MostrarHistorial()
+        {
             if (this.cabeza != null){
                 System.out.println("Historial de canciones");
                 int contador = 0;

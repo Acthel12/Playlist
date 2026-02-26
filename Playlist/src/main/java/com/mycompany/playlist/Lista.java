@@ -18,7 +18,9 @@ public class Lista {
         this.cola = null;
     }
     
-    public void AgregarCancionComienzo(Nodo cancion){
+    //agregar canción al comienzo
+    public void AgregarCancionComienzo(Nodo cancion)
+    {
         if(this.cabeza == null){
             this.cabeza = cancion;
             this.cola = cancion;
@@ -30,7 +32,9 @@ public class Lista {
         }
     }
     
-    public void AgregarCancionFinal(Nodo cancion){
+    //agregar canción al final
+    public void AgregarCancionFinal(Nodo cancion)
+    {
         if(this.cabeza == null){
             this.cabeza = cancion;
             this.cola = cancion;
@@ -43,7 +47,10 @@ public class Lista {
         }
         System.out.println("Añadida la canción " + cancion.cancion +" al final de la lista");
     }
-    public void ReproducirAContinuacion(Nodo cancion){
+    
+    //añadir canción siguiente
+    public void AgregarCancionSiguiente(Nodo cancion)
+    {
         if(this.cabeza == null ){
             this.cabeza = cancion;
             this.cola = cancion;            
@@ -58,6 +65,8 @@ public class Lista {
         }
         System.out.println("Añadida la canción " + cancion.cancion +" después de la canción actual");
     }
+    
+    //reproducir la siguiente canción (si es que hay)
     public void ReproducirSiguiente(Pila historial){
         Nodo cancionSiguiente = this.cabeza.siguiente;
         if (this.cabeza == null){
@@ -73,6 +82,8 @@ public class Lista {
         System.out.println("Se terminó la lista de reproducción actual.");
         }
     }
+    
+    //reproducir la canción anterior regresándola del historial
     public void ReproducirAnterior(Pila historial){
         {
         Nodo cancionAnterior = historial.Desapilar();
@@ -84,6 +95,7 @@ public class Lista {
         }
     }
     
+    //mostrar la canción actual en el reproductor
     public void MostrarCancionActual(){
         if (cabeza == null){
             System.out.println("Error, la lista de reproducción esta vacía");
@@ -93,6 +105,7 @@ public class Lista {
         }
     }
     
+    //mostrar la lista de canciones en cola
     public void MostrarListaDeReproduccion(){
         if(this.cabeza == null ){
             System.out.println("No hay canciones en cola");
