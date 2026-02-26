@@ -52,7 +52,7 @@ public class Playlist {
                         System.out.print("Nombre de la canción: ");
                         String nombreFinal = escaner.nextLine();
                         if (nombreFinal == null || nombreFinal.isBlank()){
-                            System.out.println("Error por favor introduzca un nombre para la cancion");
+                            System.out.println("Error por favor introduzca un nombre para la canción");
                             limpiarPantalla();
                             break;
                         }
@@ -65,7 +65,7 @@ public class Playlist {
                         System.out.print("Nombre de la canción: ");
                         String nombreSiguiente = escaner.nextLine();
                         if (nombreSiguiente == null || nombreSiguiente.isBlank()){
-                            System.out.println("Error por favor introduzca un nombre para la cancion");
+                            System.out.println("Error por favor introduzca un nombre para la canción");
                             limpiarPantalla();
                             break;
                         }
