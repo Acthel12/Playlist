@@ -16,12 +16,14 @@ public class Pila {
         }
         
         public void Apilar(Nodo cancion){
+            //copia de seguridad para que no se rompa el historial
+            Nodo nuevoNodoHistorial = new Nodo(cancion.cancion);
             if (this.cabeza == null){
-                this.cabeza = cancion;
+                this.cabeza = nuevoNodoHistorial;
             }
             else {
-                cancion.siguiente = this.cabeza;
-                this.cabeza = cancion;
+                nuevoNodoHistorial.siguiente = this.cabeza;
+                this.cabeza = nuevoNodoHistorial;
             }
         }
         public Nodo Desapilar(){

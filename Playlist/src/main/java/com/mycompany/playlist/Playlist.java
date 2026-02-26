@@ -37,10 +37,9 @@ public class Playlist {
             System.out.println("1. Agregar canción al final de la playlist");
             System.out.println("2. Agregar una canción a continuación");
             System.out.println("3. Reproducir la playlist");
-            System.out.println("4. Reproducir la canción anterior");
-            System.out.println("5. Ver canciones en cola");
-            System.out.println("6. Ver historial de canciones");
-            System.out.println("7. Salir");
+            System.out.println("4. Ver canciones en cola");
+            System.out.println("5. Ver historial de canciones");
+            System.out.println("6. Salir");
             System.out.print("Elige una opción: ");
 
             try {
@@ -65,60 +64,72 @@ public class Playlist {
                         break;
 
                     case 3:
-                    //reproducir la playlist
+                    //reproducir la playlist con un control integrado
                         if (playlist.cabeza == null) {
-                            System.out.println("No hay canciones para reproducir.");
-                        } else {
-                            //se identifica la canción actual, que sería la cabeza de la lista
-                            Nodo cancionActual = playlist.cabeza;
-                            
-                            System.out.println("Reproduciendo: " + cancionActual.cancion + " en el reproductor unimarista");
-                            System.out.println("La canción finalizó");
+                            System.out.println("No hay canciones para reproducir. Agrega alguna :)");}
+                        else 
+                        {
+                            boolean reproductor = true;
+        
+                            while (reproductor && playlist.cabeza != null)
+                            {
+                                limpiarPantalla();
+                                System.out.println("++++ REPRODUCTOR UNIMARISTA ++++");
+                                System.out.println("SONANDO AHORA");
+                                //usamos el método que está en la clase lista para mostrar la canción
+                                playlist.MostrarCancionActual(); 
+                                System.out.println("\n---------------------------");
+                                System.out.println("Controles del reproductor:");
+                                System.out.println("[1] Siguiente canción");
+                                System.out.println("[2] Anterior canción");
+                                System.out.println("[3] Regresar al menú principal");
+                                System.out.println("---------------------------");
+                                System.out.print("\n¿Qué deseas hacer, unimarista?: ");
+                                
+                                String elegido = escaner.nextLine();
+                                int accion = Integer.parseInt(elegido);
 
-                            //se avanza a la siguiente canción una vez finalizada la canción
-                            playlist.cabeza = playlist.cabeza.siguiente;
-                            
-                            //si no hay canciones, dejar vacía la cola
-                            if (playlist.cabeza == null) {
-                                playlist.cola = null;
+                                switch (accion)
+                                {
+                                    case 1:
+                                        playlist.ReproducirSiguiente(historial);
+                                        //pausa para continuar
+                                        System.out.println("Presiona Enter para continuar");
+                                        escaner.nextLine(); 
+                                        break;
+
+                                    case 2:
+                                        playlist.ReproducirAnterior(historial);
+                                        System.out.println("Presiona Enter para continuar");
+                                        escaner.nextLine();
+                                        break;
+
+                                    case 3:
+                                        System.out.println("Saliendo del reproductor :)");
+                                        reproductor = false;
+                                        break;
+
+                                    default:
+                                        System.out.println("Opción no válida.");
+                                }
                             }
-
-                            //para que el nodo no apunte a nada antes de moverlo
-                            cancionActual.siguiente = null; 
-
-                            //lo movemos a la pila del historial
-                            historial.Apilar(cancionActual);
                         }
                         limpiarPantalla();
                         break;
 
                     case 4:
-                        //reproducir la canción anterior
-                        
-                        //recupero la canción que recién se movió al historial
-                        Nodo cancionRecuperada = historial.Desapilar();
-                        
-                        if (cancionRecuperada != null) {
-                            //se coloca la canción en la playlist para que sea la siguiente en reproducirse
-                            playlist.AgregarCancionComienzo(cancionRecuperada);
-                            System.out.println("Regresaste a la canción: " + cancionRecuperada.cancion);
-                        }
-                        limpiarPantalla();
-                        break;
-
-                    case 5:
                         //mostrar las canciones que quedan en cola
                         playlist.MostrarListaDeReproduccion();
                         limpiarPantalla();
                         break;
 
-                    case 6:
+                    case 5:
                         //mostrar el historial de canciones escuchadas
                         historial.MostrarHistorial();
                         limpiarPantalla();
                         break;
 
-                    case 7:
+                    case 6:
                         //salir del programa
                         salir = true;
                         break;

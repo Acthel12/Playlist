@@ -28,7 +28,6 @@ public class Lista {
             cancion.siguiente = this.cabeza;
             this.cabeza = cancion;
         }
-        System.out.println("Añadida la canción " + cancion.cancion +" al comienzo de la lista");
     }
     
     public void AgregarCancionFinal(Nodo cancion){
@@ -60,42 +59,43 @@ public class Lista {
         System.out.println("Añadida la canción " + cancion.cancion +" después de la canción actual");
     }
     public void ReproducirSiguiente(Pila historial){
+        Nodo cancionSiguiente = this.cabeza.siguiente;
         if (this.cabeza == null){
             System.out.println("Error, no hay canciones en la lista de reproducción");
+        return;
         }
-        else {
-            System.out.println("Se acabó la canción: " + this.cabeza.cancion);
-            Nodo cancionSiguiente = this.cabeza.siguiente;
-            if(cancionSiguiente != null){
-                System.out.println("Reproduciendo la siguiente canción: " + cancionSiguiente.cancion);
-            }
-            historial.Apilar(this.cabeza);
-            this.cabeza = cancionSiguiente;
+        historial.Apilar(this.cabeza);
+        this.cabeza = cancionSiguiente;
+        System.out.println("Se acabó la canción.");
             
-            if (this.cabeza == null){
-                this.cola = null;
-                System.out.println("Se terminó la lista de reproducción actual.");
-            }
+        if (this.cabeza == null){
+        this.cola = null;
+        System.out.println("Se terminó la lista de reproducción actual.");
         }
     }
     public void ReproducirAnterior(Pila historial){
+        {
         Nodo cancionAnterior = historial.Desapilar();
         if (cancionAnterior != null ) {
             this.AgregarCancionComienzo(cancionAnterior);
+            System.out.println("Regresaste a la canción: " + cancionAnterior.cancion);}
+        else{
+            System.out.println("No hay canciones anteriores en el historial.");}
         }
     }
     
     public void MostrarCancionActual(){
         if (cabeza == null){
-            System.out.println("Error, la lista de reproducción esta vacia");
+            System.out.println("Error, la lista de reproducción esta vacía");
         }
         else {
             System.out.println("La canción actual es: "+ this.cabeza.cancion);
         }
     }
+    
     public void MostrarListaDeReproduccion(){
         if(this.cabeza == null ){
-            System.out.println("Error, La lista está vacía");
+            System.out.println("No hay canciones en cola");
         }
         else {
             int contador = 0;
