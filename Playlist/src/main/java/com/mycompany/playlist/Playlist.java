@@ -120,7 +120,7 @@ public class Playlist {
                                         break;
 
                                     case 3:
-                                        System.out.println("Saliendo del reproductor :)");
+                                        System.out.println("Saliendo al menú principal del reproductor :)");
                                         reproductor = false;
                                         break;
 
