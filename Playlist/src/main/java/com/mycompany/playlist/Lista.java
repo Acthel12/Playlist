@@ -108,34 +108,4 @@ public class Lista {
             }
         }
     }
-    public void EliminarCancion(String cancion){
-        if (this.cabeza == null){
-            System.out.println("Error: la lista de reproducción esta vacía ");
-        }
-        else if (this.cabeza.cancion.equals(cancion) ) {
-            this.cabeza = this.cabeza.siguiente;
-            System.out.println("Se eliminó " + cancion + "al comienzo de la lista de reproducción");
-            if (this.cabeza == null || this.cabeza.siguiente == null ){
-                this.cola = this.cabeza;
-            } 
-        }
-        else {
-            Nodo actual = this.cabeza;
-            
-            while (actual.siguiente != null && !actual.siguiente.cancion.equals(cancion)){
-                actual = actual.siguiente;
-            }
-            if (actual.siguiente != null){
-                actual.siguiente  = actual.siguiente.siguiente;
-                System.out.println("Se eliminó la primera aparición de " + cancion);
-                if (actual.siguiente == null){
-                    this.cola = actual;
-                }
-            }
-            else{
-                System.out.println("No se encontró la canción a eliminar");
-            }
-            
-        }
-    }
 }
