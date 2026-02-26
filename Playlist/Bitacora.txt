@@ -1,0 +1,373 @@
+BITÁCORA DE LA ELABORACIÓN DEL PROGRAMA DE REPRODUCCIÓN DE PLAYLIST
+
+ALUMNOS: 
+JUAN VILLARROEL. C.I: 32051184.
+GABRIEL CARNEIRO. C.I: 32051221.
+UNIDAD CURRICULAR: ESTRUCTURA DE DATOS V-01.
+
+
+Día 1 (21/02/2026)
+1.Se creó el proyecto.
+2.Se programaron las estructuras de datos (nodo,java) siguiendo lo visto en clase.
+
+Día 2 (22/02/2026)
+1.Se creó la clase de pila para las diferentes funciones del historial.
+2.Se creó la clase Lista.java para manejar la playlist y sus reproducciones.
+3.Se desarrollaron los métodos de inserción AgregarCancionComienzo y AgregarCancionFinal para manejar el flujo de la playlist.
+4.Se nos dificultó un poco la lógica de desapilar en la clase pila, ya que había que asegurar que al sacar un elemento, la cabeza de la pila se moviera al siguiente nodo correctamente para no perder la referencia del historial restante. Pero lo entendimos al final luego de ensayo-error.
+5.Se le consultó a gemini si la lógica de la clase pila era funcional y esta fue su respuesta:
+
+¡Funciona perfectamente! Has logrado implementar correctamente el comportamiento LIFO (Last-In, First-Out) de una pila. Tu lógica para manejar los casos de una pila vacía, una pila con un solo elemento y una pila con múltiples elementos en el método Desapilar es impecable y no tiene errores lógicos. 👏
+
+Se utilizó el siguiente prompt: Revisa este código de java sobre una pila y dime si cumple con el método LIFO:
+
+public class Pila {
+
+public class Pila {
+        Nodo cabeza;
+        
+        public Pila (){
+            this.cabeza = null;
+        }
+        
+        public void Apilar(Nodo cancion){
+            if (this.cabeza == null){
+                this.cabeza = cancion;
+            }
+            else {
+                cancion.siguiente = this.cabeza;
+                this.cabeza = cancion;
+            }
+        }
+        public Nodo Desapilar(){
+            if (this.cabeza == null){
+                System.out.println("Error: el historial esta vacío");
+                return null;
+            }
+            else {
+                Nodo actual = this.cabeza;
+                this.cabeza = this.cabeza.siguiente;
+                actual.siguiente = null;
+                
+                return actual;
+            }
+        }
+        public void MostrarHistorial(){
+            if (this.cabeza != null){
+                System.out.println("Historial de canciones");
+                int contador = 0;
+                Nodo siguiente = this.cabeza;
+                while ( siguiente != null){
+                    contador += 1;
+                    System.out.println(contador + ". " + siguiente.cancion);
+                    siguiente = siguiente.siguiente;
+                }
+            }
+            else {
+                System.out.println("El historial esta vacío");
+            }
+        }
+}
+
+Día 3 (23/02/2026)
+1.Se creó la clase principal playlist.java.
+2.Se estructuró el menú principal con un ciclo while y un switch para las 7 opciones del usuario.
+3.Se estructuró la lógica para leer con un escáner el input del usuario para elegir la opción deseada.
+4..Se conectó la lógica de reproducción para la opción 3. Al reproducir, la canción actual se mueve de la lista al historial en la pila.
+5.Se implementó la opción 4 de ReproducirAnterior, que recupera el nodo del historial y lo vuelve a insertar al inicio de la playlist usando AgregarCancionComienzo.
+6.Se implementaron las opciones 2, 5 y 6 conectándolas con las funciones ya elaboradas de las otras clases.
+7.Buscamos ayuda de gemini para saber cuál era el equivalente del match-case en python pero en java, ya que no lo recordábamos.
+
+El prompt usado fue el siguiente: Como puedo realizar un match case de python pero en java?
+
+Su respuesta fue:
+
+Sí, es totalmente posible. A partir de Java 21 (versión LTS), la funcionalidad equivalente al match-case de Python se llama Pattern Matching for Switch (Patrón de coincidencia para Switch).
+
+Aunque Java utiliza la palabra clave clásica switch, ha sido supervitaminada para comportarse casi igual que en Python.
+
+Aquí tienes cómo hacerlo, comparando ambos lenguajes.
+
+1. La Sintaxis Moderna (Java 21+)
+En Python harías esto para verificar tipos y condiciones:
+
+Python
+
+# Python
+def procesar(dato):
+    match dato:
+        case int(i) if i > 0:
+            print(f"Entero positivo: {i}")
+        case str(s):
+            print(f"Es un texto: {s}")
+        case None:
+            print("Es nulo")
+        case _:
+            print("Otra cosa")
+En Java, usas switch con la sintaxis de flecha (->) y la palabra clave when para las condiciones (guardas):
+
+Java
+
+// Java 21+
+void procesar(Object dato) {
+    switch (dato) {
+        // Coincidencia de tipo + Condición (Guard)
+        case Integer i when i > 0 -> 
+            System.out.println("Entero positivo: " + i);
+            
+        // Coincidencia de tipo simple
+        case String s -> 
+            System.out.println("Es un texto: " + s);
+            
+        // Manejo de nulos (antes el switch lanzaba error con null)
+        case null -> 
+            System.out.println("Es nulo");
+            
+        // Caso por defecto (equivalente a case _ en Python)
+        default -> 
+            System.out.println("Otra cosa");
+    }
+}
+
+Nota: que risa las descripciones de gemini; "supervitaminada".
+
+Día 4 (24/02/2026)
+1.Se implementó el manejo de errores con try-catch en el main para evitar que el programa colapse si el usuario ingresa letras en lugar de números o si sucede algún otro error. Para esto se le consultó a gemini como captar errores en java, para asegurarnos e usar la sintaxis y lógica correcta y verificar si era similar a C# (que es lo más similar a java que estamos viendo actualmente).
+
+Los prompts usados fueron los siguientes:
+
+(primer prompt) cómo capto un error en java cuando intento convertir una cadena de texto (string) en un número, pero el formato de la cadena no es válido para la conversión.
+
+La respuesta de gemini fue:
+Para capturar este error en Java, necesitas familiarizarte con una excepción específica: NumberFormatException. Esta ocurre cuando intentas transformar un String en un tipo numérico (como Integer o Double) y el contenido no es compatible.
+
+El Bloque Try-Catch
+La forma estándar de gestionar esto es envolver el código de conversión en un bloque try-catch. Si la conversión falla, el flujo del programa no se detiene abruptamente, sino que salta al bloque catch.
+
+Java
+
+public class EjemploConversion {
+    public static void main(String[] args) {
+        String textoInvalido = "123a"; // Esto causará un error
+
+        try {
+            // Intentamos la conversión
+            int numero = Integer.parseInt(textoInvalido);
+            System.out.println("El número es: " + numero);
+            
+        } catch (NumberFormatException e) {
+            // Aquí manejamos el error
+            System.err.println("Error: El texto '" + textoInvalido + "' no es un número válido.");
+        }
+    }
+}
+
+(segundo prompt) y si sucede algún otro error en general cómo lo capto y lo muestro en la terminal?
+
+La respuesta de gemini fue:
+
+Para capturar cualquier otro tipo de error en Java, debemos escalar en la jerarquía de clases de excepciones. En Java, la clase Exception es la madre de casi todos los errores que puedes manejar en tu código.
+
+Aquí te explico cómo capturarlos de forma general y cómo extraer la información útil para mostrarla en la terminal.
+
+1. El Capturador Universal (Exception)
+Si quieres un "atrapalotodo", puedes usar la clase genérica Exception. Es útil colocarla al final de tus bloques catch para asegurar que el programa no se detenga si ocurre algo inesperado (como un error de memoria, un archivo que no existe, o un valor nulo).
+
+Java
+
+try {
+    // Código que puede fallar (ej. división por cero, acceso a índice inexistente)
+    int resultado = 10 / 0; 
+} catch (NumberFormatException e) {
+    System.err.println("Error específico: No es un número.");
+} catch (Exception e) {
+    // Captura CUALQUIER otra cosa que no sea NumberFormatException
+    System.err.println("Ocurrió un error inesperado: " + e.getMessage());
+}
+2. Cómo mostrar el error detallado
+Cuando capturas una excepción, el objeto e contiene información valiosa. Tienes tres formas principales de mostrarla en la terminal:
+
+A. El mensaje corto (getMessage())
+Ideal para el usuario final o logs limpios. Solo te dice qué salió mal.
+
+Java
+
+System.out.println("Error: " + e.getMessage());
+
+
+2.Se añadió el método estático limpiarPantalla() imprimiendo líneas vacías para mejorar la estética en la consola. Esto también se le consultó a gemini ya que no sabíamos como manejar esto en java, nunca lo habíamos hecho. Al hacerlo, nos enteramos que NetBeans no posee una terminal como tal y por ende no funciona el limpiar la pantalla, así que gemini nos dio otra opción que es agregar saltos de líneas para que lo anterior desaparezca de la vista del usuario; esto no se ve de lo mejor, pero funciona para que la gente no se confunda y se vea más estético.
+
+El prompt utilizado fue:
+necesito una ayuda para un proyecto de programación en java, de qué forma puedo limpiar la terminal si tengo un menú para mi programa manejado en la terminal?
+
+Su respuesta fue esta:
+
+Limpiar la consola en Java es un problema clásico porque Java está diseñado para ser multiplataforma y la "consola" depende del sistema operativo (Windows, Linux, macOS), no del lenguaje en sí.
+
+Aquí te presento las tres formas más efectivas de hacerlo, ordenadas de la más recomendada a la solución "de emergencia".
+
+1. El método moderno (Códigos de escape ANSI)
+Esta es la forma más limpia y rápida. Funciona en casi todos los terminales modernos (Linux, macOS, y Windows 10/11 en PowerShell o CMD modernos).
+
+Utiliza códigos especiales que el terminal interpreta como "borrar pantalla" y "mover cursor al inicio".
+
+Java
+
+public static void limpiarPantalla() {
+    System.out.print("\033[H\033[2J");
+    System.out.flush();
+}
+Cómo funciona: \033 es el carácter de escape. [H mueve el cursor arriba a la izquierda y [2J limpia la pantalla.
+
+2. El método robusto (ProcessBuilder)
+Si estás en una versión antigua de Windows o el método ANSI falla, puedes invocar directamente el comando del sistema operativo (cls en Windows, clear en Unix/Linux/Mac).
+
+Java
+
+public static void limpiarPantalla() {
+    try {
+        if (System.getProperty("os.name").contains("Windows")) {
+            new ProcessBuilder("cmd", "/c", "cls").inheritIO().start().waitFor();
+        } else {
+            new ProcessBuilder("clear").inheritIO().start().waitFor();
+        }
+    } catch (Exception e) {
+        // Si falla, imprimimos saltos de línea como plan B
+        System.out.println("Error al limpiar pantalla: " + e.getMessage());
+    }
+}
+Nota: Este método puede ser ligeramente más lento porque crea un nuevo proceso en el sistema.
+
+3. El método "sucio" (Saltos de línea)
+Si nada de lo anterior funciona (o si el profesor te pide una solución muy básica), simplemente imprime muchas líneas vacías para "empujar" el texto viejo hacia arriba.
+
+Java
+
+public static void limpiarPantalla() {
+    for (int i = 0; i < 50; i++) {
+        System.out.println();
+    }
+}
+⚠️ Importante: El problema de los IDEs
+Es muy probable que si ejecutas esto dentro de NetBeans, Eclipse o IntelliJ (en la ventana de "Output" o "Run"), NO funcione.
+
+¿Por qué? Porque la ventana de salida de los IDEs no es una verdadera terminal; es solo un visor de texto. No interpreta comandos de limpieza.
+
+La solución: Para probar que tu menú funciona, debes compilar tu programa y ejecutarlo desde la terminal real de tu computadora (CMD, PowerShell o Terminal).
+
+Nota: Menos mal nos dijo que no servía en netbeans, porque lo probamos y en efecto no funcionó :(. Así que le preguntamos de nuevo:
+
+Prompt utilizado: estoy utilizando netbeans, no hay manera de limpiar la terminal de netbeans entre interacciones de las opciones del menú?
+
+Su respuesta fue:
+
+Esa es una de las limitaciones más frustrantes de NetBeans (y de la mayoría de los IDEs como Eclipse o IntelliJ).
+
+La respuesta corta es: No, no existe un comando de código que pueda borrar la ventana de "Output" nativa de NetBeans, porque esa ventana no es una terminal real, es solo un registro de texto (log). No acepta comandos del sistema ni códigos de limpieza.
+
+Sin embargo, tienes dos soluciones para lograr el efecto que buscas:
+
+Solución 1: El "Truco Visual" (Funciona dentro de NetBeans)
+Como la ventana de Output no se puede borrar, lo único que puedes hacer es "empujar" el texto hacia arriba para simular una limpieza.
+
+Crea este método y llámalo cuando necesites limpiar:
+
+Java
+
+public static void limpiarAnt() {
+    // Imprime 50 líneas vacías
+    for (int i = 0; i < 50; i++) {
+        System.out.println();
+    }
+}
+Resultado: El usuario verá la pantalla "limpia" porque el menú anterior subió y desapareció de la vista inmediata, aunque si hace scroll hacia arriba, verá el historial.
+
+Solución 2: Configurar NetBeans para usar la Terminal Externa (La mejor opción)
+Esta es la solución profesional. En lugar de ejecutar tu programa en la ventanita de abajo de NetBeans, puedes configurarlo para que se abra en una ventana real de CMD o PowerShell (o Terminal en Mac/Linux).
+
+Al hacer esto, los códigos de limpieza reales (cls, clear) sí funcionarán.
+
+Pasos para configurarlo en NetBeans:
+
+Haz clic derecho sobre el nombre de tu proyecto (el ícono de la taza de café) en el panel izquierdo "Projects".
+
+Selecciona Properties (Propiedades) al final del menú.
+
+En la lista de la izquierda, busca la categoría Run (Ejecutar).
+
+Busca la opción que dice Console Type (Tipo de Consola).
+
+Por defecto dice Internal Output.
+
+Cámbialo a External Terminal (o External Console).
+
+Dale a OK y ejecuta tu programa de nuevo (Run).
+
+Ahora, tu programa se abrirá en una ventana negra separada. Ahí sí funcionará el código robusto que te di antes:
+
+Java
+
+public static void limpiarPantalla() {
+    try {
+        if (System.getProperty("os.name").contains("Windows")) {
+            new ProcessBuilder("cmd", "/c", "cls").inheritIO().start().waitFor();
+        } else {
+            new ProcessBuilder("clear").inheritIO().start().waitFor();
+        }
+    } catch (Exception e) {
+        System.out.println("Error al limpiar");
+    }
+}
+
+Resumen
+Si quieres quedarte dentro de la ventanita de NetBeans: Usa el bucle de 50 saltos de línea.
+
+Si quieres que funcione limpiando de verdad: Cambia la configuración a "External Terminal".
+
+Nota: En efecto no queríamos configurar netbeans para utilizar una terminal externa, la idea era que el programa funcionara de la forma más nativa posible. Así que nos decidimos por los saltos de línea, espero que no le sea muy molesto verlo así profe :(.
+
+3.Se pulieron los mensajes de salida para que el usuario sepa qué canción se está reproduciendo o si la lista está vacía. Solo detalles visuales.
+
+
+MENCIÓN HONORÍFICA DE INCONVENIENTES AL INICIO DE ELABORACIÓN DEL PROGRAMA:
+
+El push al repositorio de github a través de netbeans no funcionaba, pedía una clave y colocábamos nuestra clave de github y no funcionaba. Así que por supuesto recurrimos a gemini para solucionarlo lo más rápido posible y gracias a Dios que ella siempre ayuda paso a paso cuando tienes inconvenientes.
+
+El prompt fue: netbeans no me deja hacer push a un repositorio de github, me pide una clave, que hago?
+
+Su respuesta fue:
+
+Ese error es muy común. Desde hace un tiempo, GitHub ya no permite usar tu contraseña normal para operaciones de Git (como el push) por razones de seguridad. Ahora necesitas un Personal Access Token (PAT) o configurar una clave SSH.
+
+Lo más rápido para solucionar esto en NetBeans es generar un Token de Acceso Personal. Aquí tienes los pasos:
+
+1. Generar el Token en GitHub
+Entra a tu cuenta de GitHub en el navegador.
+
+Ve a Settings (Configuración) > Developer settings (al final de la columna izquierda).
+
+Selecciona Personal access tokens > Tokens (classic).
+
+Haz clic en Generate new token (classic).
+
+Ponle un nombre (ej. "NetBeans") y selecciona la duración (puedes poner 90 días o sin expiración).
+
+Importante: Marca la casilla que dice repo (esto permite hacer push a tus repositorios).
+
+Haz clic en Generate token.
+
+Copia el token y guárdalo en un lugar seguro. No podrás volver a verlo una vez que cierres la página.
+
+2. Usar el Token en NetBeans
+Cuando NetBeans te pida la clave para hacer el push:
+
+Username: Tu nombre de usuario de GitHub.
+
+Password: Pega el Token que acabas de generar (no tu contraseña de siempre).
+
+Tip: Asegúrate de marcar la casilla "Remember Password" en la ventana de NetBeans para que no tengas que pegarlo cada vez que quieras subir cambios.
+
+Nota: Luego de eso seguimos sus pasos y generamos el token en la página de GitHub. Fue algo súper loco para nosotros porque ya veníamos acostumbrados a que en Visual Studio y Visual Studio Code no se hace eso.
+
+
+Eso es todo profe, espero que le guste nuestro programa, aprendimos bastante haciéndolo :)
