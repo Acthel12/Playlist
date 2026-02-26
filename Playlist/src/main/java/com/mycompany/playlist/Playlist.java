@@ -51,6 +51,11 @@ public class Playlist {
                         //agregar al final de la playlist
                         System.out.print("Nombre de la canción: ");
                         String nombreFinal = escaner.nextLine();
+                        if (nombreFinal == null || nombreFinal.isBlank()){
+                            System.out.println("Error por favor introduzca un nombre para la cancion");
+                            limpiarPantalla();
+                            break;
+                        }
                         playlist.AgregarCancionFinal(new Nodo(nombreFinal));
                         limpiarPantalla();
                         break;
@@ -59,6 +64,11 @@ public class Playlist {
                     //insertar la siguiente canción
                         System.out.print("Nombre de la canción: ");
                         String nombreSiguiente = escaner.nextLine();
+                        if (nombreSiguiente == null || nombreSiguiente.isBlank()){
+                            System.out.println("Error por favor introduzca un nombre para la cancion");
+                            limpiarPantalla();
+                            break;
+                        }
                         playlist.ReproducirAContinuacion(new Nodo(nombreSiguiente));
                         limpiarPantalla();
                         break;
